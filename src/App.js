@@ -6,14 +6,15 @@ import Select from "./components/Select/Select";
 function App() {
 
   const [allOptions, setAllOptions] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [selectedOption, setSelectedOption] = useState('');
 
   useEffect(() => {
     setAllOptions(top100Films);
   }, []);
 
-  const onChange = e => {
-    setInputValue(e.target.value);
+  const onChange = option => {
+    setSelectedOption(option);
+    console.log('selectedOption changed to', selectedOption);
   }
 
   return (
@@ -21,10 +22,9 @@ function App() {
 
       <Select
         options={allOptions}
-        placeholder="Movie"
-        inputValue={inputValue}
-        setInputValue={setInputValue}
+        selectedOption={selectedOption}
         onChange={onChange}
+        placeholder="Movie"
       />
 
     </div>

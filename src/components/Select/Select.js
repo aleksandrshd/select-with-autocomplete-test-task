@@ -1,38 +1,75 @@
 import "./Select.css";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
-export default function Select({options, placeholder, inputValue, setInputValue, onChange}) {
+export default function Select({options, selectedOption, onChange, placeholder}) {
 
+  const [inputValue, setInputValue] = useState('');
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [displayOptions, setDisplayOptions] = useState(false);
   const [focusedOption, setFocusedOption] = useState(0);
+
+  const optionsRef = useRef([]);
 
   useEffect(() => {
     setFilteredOptions(options.filter(result => result.label.match(new RegExp(inputValue, 'gi'))));
   }, [inputValue, options]);
 
+  useEffect(() => {
+    if (optionsRef.current[focusedOption] !== null && optionsRef.current[focusedOption] !== undefined) {
+      optionsRef.current[focusedOption].scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center',});
+    }
+  }, [focusedOption]);
+
+  const onInputChange = e => {
+    setInputValue(e.target.value);
+  }
+
   const onFocus = () => {
     setDisplayOptions(true);
   }
 
-  const onFocusOut = () => {
+  const onBlur = () => {
     setDisplayOptions(false);
   }
 
-  const onKeyDown = e => {
+  const onKeyDown = async e => {
+
+    console.log(e.keyCode);
 
     if (e.keyCode === 38) {
-      setFocusedOption(focusedOption - 1);
+      if (focusedOption >= 1) {
+        setFocusedOption(focusedOption - 1);
+      } else {
+        setFocusedOption(filteredOptions.length - 1);
+      }
     }
 
     if (e.keyCode === 40) {
-      setFocusedOption(focusedOption + 1);
+      if (focusedOption < filteredOptions.length - 1) {
+        setFocusedOption(focusedOption + 1);
+      } else {
+        setFocusedOption(0);
+      }
+    }
+
+    if (e.keyCode === 46) {
+      setInputValue('');
     }
 
     if (e.keyCode === 13) {
-      setInputValue(filteredOptions[focusedOption].label);
+      await onChange(filteredOptions[focusedOption].label);
+      console.log('filteredOptions[focusedOption].label', filteredOptions[focusedOption].label);
+      console.log('selectedOption', selectedOption)
+      setInputValue(selectedOption);
       setDisplayOptions(false);
+      console.log('focusedOption', focusedOption);
+      return;
     }
+
+    setDisplayOptions(true);
 
   }
 
@@ -41,8 +78,9 @@ export default function Select({options, placeholder, inputValue, setInputValue,
     setFocusedOption(currentFocusedOption);
   }
 
-  const onOptionClick = e => {
-    setInputValue(e.target.innerText);
+  const onOptionClick = async e => {
+    await onChange(e.target.innerText);
+    setInputValue(selectedOption);
     setDisplayOptions(false);
   }
 
@@ -55,7 +93,7 @@ export default function Select({options, placeholder, inputValue, setInputValue,
     <section className="select">
       <div
         className="select__container"
-        /*onfocusout={onFocusOut}*/
+        /*onBlur={onBlur}*/
       >
         <div className="select__container-input">
           <input
@@ -63,7 +101,7 @@ export default function Select({options, placeholder, inputValue, setInputValue,
             type="text"
             value={inputValue}
             placeholder={placeholder}
-            onChange={onChange}
+            onChange={onInputChange}
             onFocus={onFocus}
             onKeyDown={onKeyDown}/>
           <span
@@ -77,6 +115,7 @@ export default function Select({options, placeholder, inputValue, setInputValue,
               key={index}
               indexkey={index}
               className={`select__item ${ index === focusedOption ? 'select__item_focused' : ''}`}
+              ref={el => optionsRef.current[index] = el}
               onClick={onOptionClick}
               onMouseOver={onOptionFocus}
             >
