@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/select-with-autocomplete-test-task/static/css/main.7830825a.css",
-    "main.js": "/select-with-autocomplete-test-task/static/js/main.7cb86a33.js",
+    "main.js": "/select-with-autocomplete-test-task/static/js/main.fb437cdf.js",
     "static/js/787.6bb82063.chunk.js": "/select-with-autocomplete-test-task/static/js/787.6bb82063.chunk.js",
     "index.html": "/select-with-autocomplete-test-task/index.html",
     "main.7830825a.css.map": "/select-with-autocomplete-test-task/static/css/main.7830825a.css.map",
-    "main.7cb86a33.js.map": "/select-with-autocomplete-test-task/static/js/main.7cb86a33.js.map",
+    "main.fb437cdf.js.map": "/select-with-autocomplete-test-task/static/js/main.fb437cdf.js.map",
     "787.6bb82063.chunk.js.map": "/select-with-autocomplete-test-task/static/js/787.6bb82063.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7830825a.css",
-    "static/js/main.7cb86a33.js"
+    "static/js/main.fb437cdf.js"
   ]
 }
