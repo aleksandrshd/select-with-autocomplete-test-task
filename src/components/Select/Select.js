@@ -35,9 +35,7 @@ export default function Select({options, selectedOption, onChange, placeholder})
     setDisplayOptions(false);
   }
 
-  const onKeyDown = async e => {
-
-    console.log(e.keyCode);
+  const onKeyDown = /*async*/ e => {
 
     if (e.keyCode === 38) {
       if (focusedOption >= 1) {
@@ -60,12 +58,9 @@ export default function Select({options, selectedOption, onChange, placeholder})
     }
 
     if (e.keyCode === 13) {
-      await onChange(filteredOptions[focusedOption].label);
-      console.log('filteredOptions[focusedOption].label', filteredOptions[focusedOption].label);
-      console.log('selectedOption', selectedOption)
-      setInputValue(selectedOption);
+      /*await onChange(filteredOptions[focusedOption].label);*/
+      setInputValue(filteredOptions[focusedOption].label);
       setDisplayOptions(false);
-      console.log('focusedOption', focusedOption);
       return;
     }
 
@@ -78,9 +73,9 @@ export default function Select({options, selectedOption, onChange, placeholder})
     setFocusedOption(currentFocusedOption);
   }
 
-  const onOptionClick = async e => {
-    await onChange(e.target.innerText);
-    setInputValue(selectedOption);
+  const onOptionClick = /*async*/ e => {
+    /*await onChange(e.target.innerText);*/
+    setInputValue(e.target.innerText);
     setDisplayOptions(false);
   }
 
