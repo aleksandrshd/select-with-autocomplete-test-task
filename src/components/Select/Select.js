@@ -89,10 +89,7 @@ export default function Select({options, selectedOption, onChange, placeholder})
 
   return (
     <section className="select">
-      <div
-        className="select__container"
-        /*onBlur={onBlur}*/
-      >
+      <div className="select__container">
         <div className="select__container-input">
           <input
             className="select__input"
@@ -101,6 +98,7 @@ export default function Select({options, selectedOption, onChange, placeholder})
             placeholder={placeholder}
             onChange={onInputChange}
             onFocus={onFocus}
+            onBlur={onBlur}
             onKeyDown={onKeyDown}/>
           <span
             className="select__close-btn"
@@ -114,7 +112,7 @@ export default function Select({options, selectedOption, onChange, placeholder})
               indexkey={index}
               className={`select__item ${ index === focusedOption ? 'select__item_focused' : ''}`}
               ref={el => optionsRef.current[index] = el}
-              onClick={onOptionClick}
+              onMouseDown={onOptionClick}
               onMouseOver={onOptionFocus}
             >
               {item.label}
