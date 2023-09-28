@@ -15,13 +15,8 @@ export default function Select({options, selectedOption, onChange, placeholder})
   }, [inputValue, options]);
 
   useEffect(() => {
-    if (optionsRef.current[focusedOption] !== null && optionsRef.current[focusedOption] !== undefined) {
-      optionsRef.current[focusedOption].scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'center',});
-    }
-  }, [focusedOption]);
+    setInputValue(selectedOption);
+  }, [selectedOption])
 
   const onInputChange = e => {
     setInputValue(e.target.value);
@@ -35,7 +30,7 @@ export default function Select({options, selectedOption, onChange, placeholder})
     setDisplayOptions(false);
   }
 
-  const onKeyDown = /*async*/ e => {
+  const onKeyDown =  e => {
 
     if (e.keyCode === 38) {
       if (focusedOption >= 1) {
@@ -58,13 +53,22 @@ export default function Select({options, selectedOption, onChange, placeholder})
     }
 
     if (e.keyCode === 13) {
-      /*await onChange(filteredOptions[focusedOption].label);*/
-      setInputValue(filteredOptions[focusedOption].label);
-      setDisplayOptions(false);
-      return;
+      if (optionsRef.current[focusedOption]) {
+        onChange(filteredOptions[focusedOption].label);
+        setDisplayOptions(false);
+        return;
+      }
     }
 
     setDisplayOptions(true);
+
+    if (optionsRef.current[focusedOption]) {
+      optionsRef.current[focusedOption].scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+      });
+    }
 
   }
 
@@ -73,9 +77,8 @@ export default function Select({options, selectedOption, onChange, placeholder})
     setFocusedOption(currentFocusedOption);
   }
 
-  const onOptionClick = /*async*/ e => {
-    /*await onChange(e.target.innerText);*/
-    setInputValue(e.target.innerText);
+  const onOptionClick = e => {
+    onChange(e.target.innerText);
     setDisplayOptions(false);
   }
 

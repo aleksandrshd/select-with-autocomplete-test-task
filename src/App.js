@@ -14,7 +14,6 @@ function App() {
 
   const onChange = option => {
     setSelectedOption(option);
-    console.log('selectedOption changed to', selectedOption);
   }
 
   return (
