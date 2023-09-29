@@ -100,7 +100,7 @@ export default function Select({options, selectedOption, onChange, placeholder})
             onFocus={onFocus}
             onBlur={onBlur}
             onKeyDown={onKeyDown}/>
-          <span
+          <button
             className="select__close-btn"
             onClick={onCloseBtnClick}
           />

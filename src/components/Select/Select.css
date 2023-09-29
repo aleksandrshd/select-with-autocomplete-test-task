@@ -46,27 +46,25 @@
 
 .select__close-btn {
     position: absolute;
-    right: 31px;
-    top: 15px;
+    right: 3px;
+    top: 13px;
     opacity: 0.75;
     cursor: pointer;
+
+    width: 24px;
+    height: 24px;
+    background-size: 14px 14px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url(../../images/close-btn.svg);
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    transition: opacity .4s linear;
 }
 .select__close-btn:hover {
     opacity: 1;
-}
-.select__close-btn:before, .select__close-btn:after {
-    position: absolute;
-    left: 15px;
-    content: ' ';
-    height: 20px;
-    width: 1px;
-    background-color: #fff;
-}
-.select__close-btn:before {
-    transform: rotate(45deg);
-}
-.select__close-btn:after {
-    transform: rotate(-45deg);
+    background-color: #3d3d3d;
 }
 
 .select__list {
