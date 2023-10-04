@@ -32,19 +32,21 @@ export default function Select({options, selectedOption, onChange, placeholder})
 
   const onKeyDown =  e => {
 
+    let newFocusedOption = focusedOption;
+
     if (e.keyCode === 38) {
       if (focusedOption >= 1) {
-        setFocusedOption(focusedOption - 1);
+        newFocusedOption = focusedOption - 1;
       } else {
-        setFocusedOption(filteredOptions.length - 1);
+        newFocusedOption = filteredOptions.length - 1;
       }
     }
 
     if (e.keyCode === 40) {
       if (focusedOption < filteredOptions.length - 1) {
-        setFocusedOption(focusedOption + 1);
+        newFocusedOption = focusedOption + 1;
       } else {
-        setFocusedOption(0);
+        newFocusedOption = 0;
       }
     }
 
@@ -62,8 +64,10 @@ export default function Select({options, selectedOption, onChange, placeholder})
 
     setDisplayOptions(true);
 
-    if (optionsRef.current[focusedOption]) {
-      optionsRef.current[focusedOption].scrollIntoView({
+    setFocusedOption(newFocusedOption);
+
+    if (optionsRef.current[newFocusedOption]) {
+      optionsRef.current[newFocusedOption].scrollIntoView({
         behavior: 'smooth',
         block: 'center',
         inline: 'center',
